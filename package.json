@@ -1,0 +1,26 @@
+{
+  "name": "gemini-api",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "env-cmd -f .env nodemon src/index.ts -e ts,json,js,html,css",
+    "build": "rimraf ./build && tsc",
+    "start": "env-cmd -f .env node build/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@google/genai": "^1.11.0",
+    "@types/express": "^5.0.3",
+    "express": "^5.1.0",
+    "rimraf": "^6.0.1"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
