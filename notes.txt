@@ -1,0 +1,82 @@
+Running on Google VM:
+
+1. Create a VM Instance
+Go to Google Cloud Console.
+Navigate to Compute Engine > VM instances.
+Click Create Instance.
+Choose an OS (e.g., Ubuntu 22.04).
+Set machine type and firewall (allow HTTP/HTTPS if needed).
+Select a Zone not equal to HK (e.g. TW).
+Click Create.
+
+2. Connect to Your VM
+Click SSH on your VM instance to open a terminal.
+
+3. Install Node.js & Git
+'''
+sudo apt update
+sudo apt install -y nodejs npm git nano nginx
+'''
+
+4. Clone Your Project
+'''
+git clone <your-repo-url>
+cd <your-project-folder>
+'''
+
+5. Edit .env
+'''
+cp .env.example .env
+sudo nano .env
+'''
+
+6. Install Dependencies
+'''
+npm install
+'''
+
+7. Build the Project
+'''
+npm run build
+'''
+
+8. Edit the default site config
+'''
+sudo nano /etc/nginx/sites-available/default
+'''
+
+Replace the server block with:
+'''
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+'''
+
+9. Test and Reload Nginx
+'''
+sudo nginx -t
+sudo systemctl reload nginx
+'''
+
+10. Start the Server
+'''
+cd <your-project-folder>
+npm run start
+'''
+
+11. Test
+POST http://<your-vm-external-ip>/gemini/generateContent
+{
+    "model": "gemini-2.5-flash",
+    "contents": "Explain how AI works in a few words"
+}
