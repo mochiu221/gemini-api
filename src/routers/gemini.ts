@@ -33,7 +33,7 @@ const genAI = new GoogleGenAI({
     apiKey: GEMINI_API_KEY,
 });
 
-router.post("/v1/chat/completions", async (req, res) => {
+router.post("/api/chat", async (req, res) => {
   try {
     const messages = req.body.messages;
     const prompt = messages
@@ -48,14 +48,11 @@ router.post("/v1/chat/completions", async (req, res) => {
     const geminiText = result.text;
 
     res.json({
-      choices: [
-        {
-          message: {
+        message: {
             role: "assistant",
             content: geminiText
-          }
-        }
-      ]
+        },
+        done: true,
     });
   } catch (err: any) {
     console.error(err);
