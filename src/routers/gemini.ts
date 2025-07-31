@@ -41,7 +41,10 @@ router.post("/v1/chat/completions", async (req, res) => {
       .map((m: any) => m.content)
       .join("\n");
 
-    const result = await genAI.models.generateContent(prompt);
+    const result = await genAI.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt
+    });
     const geminiText = result.text;
 
     res.json({
