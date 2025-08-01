@@ -36,10 +36,9 @@ const genAI = new GoogleGenAI({
 router.post("/api/chat", async (req, res) => {
   try {
     const messages = req.body.messages;
-    const prompt = messages
-      .filter((m: any) => m.role === "user")
-      .map((m: any) => m.content)
-      .join("\n");
+    const prompt = messages.map((m: any) => {
+      return m.role + ": " + m.content;
+    }).join("\n") + "\nassistant: ";
 
     const result = await genAI.models.generateContent({
         model: "gemini-2.5-flash",
