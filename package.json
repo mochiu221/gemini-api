@@ -16,7 +16,8 @@
     "@types/express": "^5.0.3",
     "axios": "^1.11.0",
     "express": "^5.1.0",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "twilio": "^5.8.0"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
