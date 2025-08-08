@@ -79,15 +79,12 @@ router.post('/api/twilio-webhook', express.urlencoded({ extended: true }), async
       });
       const responseMessage = result.text;
       
-      // Add delay to make response feel more natural
-      setTimeout(async () => {
-        await twilioClient.conversations.v1
-          .conversations(ConversationSid)
-          .messages.create({
-            author: "whatsapp:" + twilioPhoneNumber,
-            body: responseMessage
-          });
-      }, 1000); // 1 second delay
+      await twilioClient.conversations.v1
+        .conversations(ConversationSid)
+        .messages.create({
+          author: "whatsapp:" + twilioPhoneNumber,
+          body: responseMessage
+        });
     }
     
     res.status(200).send('OK');
