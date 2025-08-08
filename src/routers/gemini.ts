@@ -67,7 +67,7 @@ router.post("/api/chat", async (req, res) => {
   }
 });
 
-router.post('/api/twilio-webhook', async (req, res) => {
+router.post('/api/twilio-webhook', express.urlencoded({ extended: true }), async (req, res) => {
   try {
     const { EventType, ConversationSid, Author, Body } = req.body;
     
